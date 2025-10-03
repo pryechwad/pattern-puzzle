@@ -103,12 +103,41 @@ function App() {
   const [correctPattern, setCorrectPattern] = useState<boolean[]>(new Array(25).fill(false));
   const [showingAnswer, setShowingAnswer] = useState(false);
   const [flashingCells, setFlashingCells] = useState<boolean[]>(new Array(25).fill(false));
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('patternPuzzle-darkMode');
+    return saved ? JSON.parse(saved) : false;
+  });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
 
   const showToast = (message: string, type: 'success' | 'error' | 'info') => {
     setToast({ message, type });
   };
+
+  // Load game state from localStorage on mount
+  useEffect(() => {
+    const savedState = localStorage.getItem('patternPuzzle-gameState');
+    if (savedState) {
+      const parsed = JSON.parse(savedState);
+      setCurrentLevel(parsed.currentLevel || 1);
+      setScore(parsed.score || 0);
+      // Don't restore game phase to avoid mid-game state issues
+    }
+  }, []);
+
+  // Save game state to localStorage
+  useEffect(() => {
+    const gameState = {
+      currentLevel,
+      score,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('patternPuzzle-gameState', JSON.stringify(gameState));
+  }, [currentLevel, score]);
+
+  // Save theme preference
+  useEffect(() => {
+    localStorage.setItem('patternPuzzle-darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   // Generate pattern for current level
   const generatePattern = () => {
@@ -216,7 +245,10 @@ function App() {
     setCorrectPattern(new Array(25).fill(false));
     setShowingAnswer(false);
     setFlashingCells(new Array(25).fill(false));
-    showToast('🔄 Game restarted! Good luck!', 'info');
+    
+    // Clear saved progress
+    localStorage.removeItem('patternPuzzle-gameState');
+    showToast('🔄 Game restarted! Progress cleared!', 'info');
   };
 
   const toggleTheme = () => {
