@@ -252,7 +252,7 @@ function App() {
   };
 
   const toggleTheme = () => {
-    setDarkMode(prev => !prev);
+    setDarkMode((prev: boolean) => !prev);
   };
 
   const hasSelection = userSelection.some(selected => selected);
