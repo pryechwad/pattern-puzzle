@@ -1,4 +1,4 @@
-import { Level } from '../types/game';
+import type { Level } from '../types/game';
 
 // Helper function to check if a number is prime
 const isPrime = (num: number): boolean => {

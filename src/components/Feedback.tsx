@@ -5,7 +5,7 @@ interface FeedbackProps {
   darkMode: boolean;
 }
 
-export const Feedback = ({ userSelection, correctPattern, score, darkMode }: FeedbackProps) => {
+export const Feedback = ({ userSelection, correctPattern, darkMode }: Omit<FeedbackProps, 'score'>) => {
   const correctCount = userSelection.filter((selected, i) => selected === correctPattern[i]).length;
   const accuracy = Math.round((correctCount / 25) * 100);
   

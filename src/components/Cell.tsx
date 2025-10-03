@@ -1,4 +1,4 @@
-import { CellProps } from '../types/game';
+import type { CellProps } from '../types/game';
 
 export const Cell = ({ 
   index, 

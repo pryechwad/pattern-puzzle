@@ -198,7 +198,7 @@ function App() {
   const toggleCell = (index: number) => {
     if (gamePhase !== 'selecting') return;
     
-    setUserSelection(prev => 
+    setUserSelection((prev: boolean[]) => 
       prev.map((selected, i) => i === index ? !selected : selected)
     );
   };
