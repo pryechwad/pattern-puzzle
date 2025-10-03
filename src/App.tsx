@@ -213,7 +213,7 @@ function App() {
     
     setGamePhase('feedback');
     setShowingAnswer(true);
-    setScore(prev => prev + scoreGain);
+    setScore((prev: number) => prev + scoreGain);
     
     // Show toast notification
     if (accuracy >= 80) {

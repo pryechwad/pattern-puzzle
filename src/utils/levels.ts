@@ -20,7 +20,7 @@ export const levels: Level[] = [
     id: 2,
     name: "Diagonals", 
     description: "Main and anti-diagonal squares flash",
-    rule: (index: number, row: number, col: number) => row === col || row + col === 4
+    rule: (_index: number, row: number, col: number) => row === col || row + col === 4
   },
   {
     id: 3,
@@ -38,6 +38,6 @@ export const levels: Level[] = [
     id: 5,
     name: "Modulo Magic",
     description: "Squares where (row + col) % 3 = 0 flash",
-    rule: (index: number, row: number, col: number) => (row + col) % 3 === 0
+    rule: (_index: number, row: number, col: number) => (row + col) % 3 === 0
   }
 ];
